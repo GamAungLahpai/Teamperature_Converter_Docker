@@ -1,12 +1,9 @@
-FROM maven:3.9.6-eclipse-temurin-21 AS build
-LABEL authors="gamaung"
+FROM openjdk:21-slim
 
 WORKDIR /app
 
-COPY pom.xml .
 
-COPY . /app
+COPY target/TempConverter.jar /app/TempConverter.jar
 
-RUN mvn package
-
-CMD ["java", "-jar", "target/TempConverter.jar"]
+# Run the application
+ENTRYPOINT ["java", "-jar", "/app/TempConverter.jar"]
