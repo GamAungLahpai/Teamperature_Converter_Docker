@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_CMD = "/Applications/Docker.app/Contents/Resources/bin/docker"
+        PATH = "/usr/local/bin:/Applications/Docker.app/Contents/Resources/bin:${env.PATH}"
         DOCKERHUB_CREDENTIALS_ID = 'DockerHub_ID'
         DOCKERHUB_REPO = '218468/week6_assignment'
         DOCKER_IMAGE_TAG = 'v1'
@@ -48,7 +48,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh '${DOCKER_CMD} build -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG} .'
+                sh 'docker build -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG} .'
             }
         }
 
@@ -56,8 +56,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'DockerHub_ID', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh '''
-                        ${DOCKER_CMD} login -u $DOCKER_USER -p $DOCKER_PASS
-                        ${DOCKER_CMD} push ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}
+                        docker login -u $DOCKER_USER -p $DOCKER_PASS
+                        docker push ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}
                     '''
                 }
             }
