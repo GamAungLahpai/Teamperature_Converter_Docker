@@ -42,7 +42,7 @@ pipeline {
 
         stage('Publish Coverage Report') {
             steps {
-                jacoco()
+                recordCoverage(tools: [[pattern: '**/target/site/jacoco/jacoco.xml']])
             }
         }
 
