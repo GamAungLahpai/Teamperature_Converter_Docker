@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
+        PATH = "/Applications/Docker.app/Contents/Resources/bin:${env.PATH}"
         DOCKERHUB_CREDENTIALS_ID = 'DockerHub_ID'
         DOCKERHUB_REPO = '218468/week6_assignment'
         DOCKER_IMAGE_TAG = 'v1'
@@ -18,7 +18,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/ADirin/Week6_3011_demo.git'
+                git 'https://github.com/GamAungLahpai/Teamperature_Converter_Docker.git'
             }
         }
 
