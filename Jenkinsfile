@@ -18,19 +18,19 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/GamAungLahpai/Teamperature_Converter_Docker.git'
+                git branch: 'main', url: 'https://github.com/GamAungLahpai/Teamperature_Converter_Docker.git'
             }
         }
 
         stage('Build') {
             steps {
-                bat 'mvn clean install'
+                sh 'mvn clean install'
             }
         }
 
         stage('Generate Report') {
             steps {
-                bat 'mvn jacoco:report'
+                sh 'mvn jacoco:report'
             }
         }
 
